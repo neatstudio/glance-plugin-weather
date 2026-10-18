@@ -1,0 +1,51 @@
+{
+  "id": "weather",
+  "kind": "source",
+  "version": "1.0.0",
+  "hub_api": 1,
+  "name": { "zh": "天气", "en": "Weather" },
+  "description": {
+    "zh": "Open-Meteo 当前天气，不需要 API key",
+    "en": "Current weather from Open-Meteo, no API key"
+  },
+  "author": "neatstudio",
+  "homepage": "https://github.com/neatstudio/glance-plugin-weather",
+  "license": "MIT",
+  "entry": "plugin.py",
+  "permissions": ["network"],
+  "settings": {
+    "type": "object",
+    "properties": {
+      "latitude": { "type": "number", "default": 31.23, "title": "纬度" },
+      "longitude": { "type": "number", "default": 121.47, "title": "经度" },
+      "city": {
+        "type": "string",
+        "default": "上海",
+        "title": "城市名",
+        "maxLength": 12
+      },
+      "refresh_min": {
+        "type": "integer",
+        "default": 30,
+        "minimum": 5,
+        "maximum": 180,
+        "title": "刷新间隔（分钟）"
+      }
+    }
+  },
+  "provides": {
+    "entities": [
+      {
+        "id": "now",
+        "name": { "zh": "当前天气", "en": "Now" },
+        "fields": {
+          "temp": { "type": "number", "unit": "°C", "name": { "zh": "温度" } },
+          "text": { "type": "text", "name": { "zh": "天气" } },
+          "code": { "type": "number" },
+          "line": { "type": "text", "name": { "zh": "一行摘要" } }
+        },
+        "stale_after_s": 5400
+      }
+    ]
+  }
+}
